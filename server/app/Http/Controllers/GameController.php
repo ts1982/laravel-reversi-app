@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use App\Models\Game;
 use App\Models\Square;
 use App\Models\Turn;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller {
@@ -28,7 +26,7 @@ class GameController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGameRequest $request) {
+    public function store(): \Illuminate\Http\JsonResponse {
         $EMPTY = 0;
         $DARK = 1;
         $LIGHT = 2;

@@ -13,4 +13,12 @@ class Turn extends Model {
         'turn_count',
         'next_disc'
     ];
+
+    public function game(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+        return $this->belongsTo(Game::class);
+    }
+
+    public function squares(): \Illuminate\Database\Eloquent\Relations\HasMany {
+        return $this->hasMany(Square::class);
+    }
 }

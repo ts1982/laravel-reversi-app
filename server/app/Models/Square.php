@@ -14,4 +14,8 @@ class Square extends Model {
         'y',
         'disc'
     ];
+
+    public function turn(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+        return $this->belongsTo(Turn::class);
+    }
 }
