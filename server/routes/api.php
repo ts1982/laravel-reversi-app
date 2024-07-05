@@ -13,3 +13,4 @@ Route::get('/user', function (Request $request) {
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/games', [GameController::class, 'store']);
 Route::get('/games/latest/turns/{turnCount}', [TurnController::class, 'show']);
+Route::post('/games/latest/turns', [TurnController::class, 'store']);

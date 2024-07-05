@@ -25,6 +25,7 @@ body {
     border: solid;
     border-width: 1px 0 0 1px;
     background-color: darkgreen;
+    cursor: pointer;
 }
 
 .square {
