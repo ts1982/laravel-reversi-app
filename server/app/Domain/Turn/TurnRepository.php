@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Turn;
 
 use App\Models\Game;
 use App\Models\Move;

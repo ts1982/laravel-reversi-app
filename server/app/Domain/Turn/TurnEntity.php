@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Turn;
 
 use App\Enums\DiscType;
 
@@ -34,6 +34,16 @@ readonly class TurnEntity {
             $next_disc,
             $move_entity,
             $next_board
+        );
+    }
+
+    public static function firstTurn(int $game_id): TurnEntity {
+        return new TurnEntity(
+            $game_id,
+            0,
+            DiscType::DARK,
+            null,
+            new BoardEntity(BoardEntity::INITIAL_DISCS)
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Turn;
 
 readonly class PointEntity {
     public function __construct(private int $x, private int $y) {

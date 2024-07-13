@@ -2,53 +2,21 @@
 
 namespace App\Services;
 
-use App\Enums\DiscType;
-use App\Models\Game;
-use App\Models\Square;
-use App\Models\Turn;
-use Illuminate\Support\Facades\DB;
-use Exception;
-use RuntimeException;
+use App\Domain\Game\GameEntity;
+use App\Domain\Game\GameRepository;
+use App\Domain\Turn\TurnEntity;
+use App\Domain\Turn\TurnRepository;
 
 class GameService {
-    public function startNewGame(): Game {
-        $INITIAL_BOARD = [
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::DARK, DiscType::LIGHT, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::LIGHT, DiscType::DARK, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-            [DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY, DiscType::EMPTY],
-        ];
+    public function startNewGame(): GameEntity {
+        $turnRepository = new TurnRepository();
+        $gameRepository = new GameRepository();
 
-        DB::beginTransaction();
-        try {
-            $game = Game::create();
+        $game = $gameRepository->save();
 
-            $turn = Turn::create([
-                'game_id' => $game->id,
-                'turn_count' => 0,
-                'next_disc' => DiscType::DARK
-            ]);
+        $turn = TurnEntity::firstTurn($game->getId());
 
-            foreach ($INITIAL_BOARD as $y => $line) {
-                foreach ($line as $x => $disc) {
-                    Square::create([
-                        'turn_id' => $turn->id,
-                        'x' => $x,
-                        'y' => $y,
-                        'disc' => $disc
-                    ]);
-                }
-            }
-
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-            throw new RuntimeException($e->getMessage());
-        }
+        $turnRepository->save($turn);
 
         return $game;
     }

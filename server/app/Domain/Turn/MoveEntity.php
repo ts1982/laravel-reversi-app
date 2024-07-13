@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Turn;
 
 readonly class MoveEntity {
     public function __construct(private int $disc, private PointEntity $point) {

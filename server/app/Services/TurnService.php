@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Domain\PointEntity;
-use App\Domain\TurnRepository;
+use App\Domain\Turn\PointEntity;
+use App\Domain\Turn\TurnRepository;
 use Illuminate\Http\Request;
 
 class TurnService {
