@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Square extends Model {
     use HasFactory;
@@ -15,7 +16,7 @@ class Square extends Model {
         'disc'
     ];
 
-    public function turn(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+    public function turn(): BelongsTo {
         return $this->belongsTo(Turn::class);
     }
 }

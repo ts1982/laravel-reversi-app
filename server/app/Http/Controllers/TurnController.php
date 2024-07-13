@@ -7,14 +7,16 @@ use App\Services\TurnService;
 use Illuminate\Http\JsonResponse;
 
 class TurnController extends Controller {
+    public function __construct(private readonly TurnService $turnService) {
+    }
+
     /**
      * ターンを保存
      * @param StoreTurnRequest $request
      * @return void
      */
-    public function register_turn(StoreTurnRequest $request): void {
-        $turnService = new TurnService();
-        $turnService->registerTurn($request);
+    public function registerTurnRouter(StoreTurnRequest $request): void {
+        $this->turnService->registerTurn($request);
     }
 
     /**
@@ -22,9 +24,8 @@ class TurnController extends Controller {
      * @param int $turn_count
      * @return JsonResponse
      */
-    public function find_latest_game_turn_by_turn_count(int $turn_count): JsonResponse {
-        $turnService = new TurnService();
-        $output = $turnService->findLatestGameTurnByTurnCount($turn_count);
+    public function findLatestGameTurnByTurnCountRouter(int $turn_count): JsonResponse {
+        $output = $this->turnService->findLatestGameTurnByTurnCount($turn_count);
 
         return response()->json($output);
     }

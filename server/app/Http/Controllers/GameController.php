@@ -10,7 +10,7 @@ class GameController extends Controller {
      * 新規ゲーム作成
      * @return JsonResponse
      */
-    public function start_new_game(): JsonResponse {
+    public function startNewGameRouter(): JsonResponse {
         $gameService = new GameService();
         $newGame = $gameService->startNewGame();
 

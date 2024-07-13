@@ -12,6 +12,6 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/users', [UserController::class, 'index']);
 
-Route::post('/games', [GameController::class, 'start_new_game']);
-Route::get('/games/latest/turns/{turnCount}', [TurnController::class, 'find_latest_game_turn_by_turn_count']);
-Route::post('/games/latest/turns', [TurnController::class, 'register_turn']);
+Route::post('/games', [GameController::class, 'startNewGameRouter']);
+Route::get('/games/latest/turns/{turnCount}', [TurnController::class, 'findLatestGameTurnByTurnCountRouter']);
+Route::post('/games/latest/turns', [TurnController::class, 'registerTurnRouter']);
