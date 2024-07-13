@@ -11,6 +11,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/users', [UserController::class, 'index']);
-Route::post('/games', [GameController::class, 'store']);
-Route::get('/games/latest/turns/{turnCount}', [TurnController::class, 'show']);
-Route::post('/games/latest/turns', [TurnController::class, 'store']);
+
+Route::post('/games', [GameController::class, 'start_new_game']);
+Route::get('/games/latest/turns/{turnCount}', [TurnController::class, 'find_latest_game_turn_by_turn_count']);
+Route::post('/games/latest/turns', [TurnController::class, 'register_turn']);

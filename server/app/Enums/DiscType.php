@@ -9,9 +9,8 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class DiscType extends Enum
-{
-    const EMPTY = 0;
-    const DARK = 1;
-    const LIGHT = 2;
+final class DiscType extends Enum {
+    public const EMPTY = 0;
+    public const DARK = 1;
+    public const LIGHT = 2;
 }
