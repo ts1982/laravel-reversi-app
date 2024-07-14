@@ -13,4 +13,5 @@ final class DiscType extends Enum {
     public const EMPTY = 0;
     public const DARK = 1;
     public const LIGHT = 2;
+    public const WALL = 3;
 }
