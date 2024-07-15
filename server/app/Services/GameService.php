@@ -9,14 +9,14 @@ use App\Domain\Turn\TurnRepository;
 
 class GameService {
     public function startNewGame(): GameEntity {
-        $turnRepository = new TurnRepository();
-        $gameRepository = new GameRepository();
+        $turn_repository = new TurnRepository();
+        $game_repository = new GameRepository();
 
-        $game = $gameRepository->save();
+        $game = $game_repository->save();
 
         $turn = TurnEntity::firstTurn($game->getId());
 
-        $turnRepository->save($turn);
+        $turn_repository->save($turn);
 
         return $game;
     }

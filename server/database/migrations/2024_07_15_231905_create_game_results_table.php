@@ -11,7 +11,6 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('game_results', function (Blueprint $table) {
             $table->id();
-            // game_idカラムはgameテーブルのidと外部キー制約
             $table->foreignId('game_id')->constrained()->cascadeOnDelete();
             $table->integer('winner_disc');
             $table->timestamps();

@@ -3,6 +3,7 @@
 namespace App\Domain\Turn;
 
 use App\Enums\DiscType;
+use App\Enums\WinnerDisc;
 
 readonly class TurnEntity {
     public function __construct(
@@ -46,15 +47,32 @@ readonly class TurnEntity {
         );
     }
 
-    private function decideNextDisc(BoardEntity $board, int $previousDisc): ?int {
-        $existDarkValidMove = $board->existValidMove(DiscType::DARK);
-        $existLightValidMove = $board->existValidMove(DiscType::LIGHT);
+    public function gameEnded(): bool {
+        return $this->next_disc === null;
+    }
 
-        if ($existDarkValidMove && $existLightValidMove) {
-            return $previousDisc === DiscType::DARK ? DiscType::LIGHT : DiscType::DARK;
-        } else if (!$existDarkValidMove && !$existLightValidMove) {
+    public function winnerDisc(): int {
+        $dark_count = $this->board->count(DiscType::DARK);
+        $light_count = $this->board->count(DiscType::LIGHT);
+
+        if ($dark_count === $light_count) {
+            return WinnerDisc::Draw;
+        } else if ($dark_count > $light_count) {
+            return WinnerDisc::Dark;
+        } else {
+            return WinnerDisc::Light;
+        }
+    }
+
+    private function decideNextDisc(BoardEntity $board, int $previous_disc): ?int {
+        $exist_dark_valid_move = $board->existValidMove(DiscType::DARK);
+        $exist_light_valid_move = $board->existValidMove(DiscType::LIGHT);
+
+        if ($exist_dark_valid_move && $exist_light_valid_move) {
+            return $previous_disc === DiscType::DARK ? DiscType::LIGHT : DiscType::DARK;
+        } else if (!$exist_dark_valid_move && !$exist_light_valid_move) {
             return null;
-        } else if ($existDarkValidMove) {
+        } else if ($exist_dark_valid_move) {
             return DiscType::DARK;
         } else {
             return DiscType::LIGHT;
