@@ -47,7 +47,7 @@ class TurnService {
         $previous_turn = $turn_repository->findForTurnCount($prev_turn_count);
 
         // 石を置く
-        $new_turn = $previous_turn->place_next(
+        $new_turn = $previous_turn->placeNext(
             $request->input('move.disc'),
             new PointEntity($request->input('move.x'), $request->input('move.y'))
         );

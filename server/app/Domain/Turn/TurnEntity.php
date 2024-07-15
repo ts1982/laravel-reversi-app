@@ -15,7 +15,7 @@ readonly class TurnEntity {
     ) {
     }
 
-    public function place_next(int $disc, PointEntity $point): TurnEntity {
+    public function placeNext(int $disc, PointEntity $point): TurnEntity {
         // 打とうとした石が、次の石ではない場合、置くことはできない
         if ($disc !== $this->next_disc) {
             throw new \Error('Invalid disc');
