@@ -8,7 +8,7 @@ readonly class TurnEntity {
     public function __construct(
         private int             $game_id,
         private int             $turn_count,
-        private int             $next_disc,
+        private int|null        $next_disc,
         private MoveEntity|null $move,
         private BoardEntity     $board,
     ) {
@@ -24,9 +24,8 @@ readonly class TurnEntity {
 
         $next_board = $this->board->place($move_entity);
 
-        // TODO: 次の石が置けない場合はスキップする処理
-
-        $next_disc = $disc === DiscType::DARK ? DiscType::LIGHT : DiscType::DARK;
+        // 次の石が置けない場合はスキップする処理
+        $next_disc = $this->decideNextDisc($next_board, $disc);
 
         return new TurnEntity(
             $this->game_id,
@@ -47,6 +46,21 @@ readonly class TurnEntity {
         );
     }
 
+    private function decideNextDisc(BoardEntity $board, int $previousDisc): ?int {
+        $existDarkValidMove = $board->existValidMove(DiscType::DARK);
+        $existLightValidMove = $board->existValidMove(DiscType::LIGHT);
+
+        if ($existDarkValidMove && $existLightValidMove) {
+            return $previousDisc === DiscType::DARK ? DiscType::LIGHT : DiscType::DARK;
+        } else if (!$existDarkValidMove && !$existLightValidMove) {
+            return null;
+        } else if ($existDarkValidMove) {
+            return DiscType::DARK;
+        } else {
+            return DiscType::LIGHT;
+        }
+    }
+
     public function getGameId(): int {
         return $this->game_id;
     }
@@ -55,7 +69,7 @@ readonly class TurnEntity {
         return $this->turn_count;
     }
 
-    public function getNextDisc(): int {
+    public function getNextDisc(): ?int {
         return $this->next_disc;
     }
 

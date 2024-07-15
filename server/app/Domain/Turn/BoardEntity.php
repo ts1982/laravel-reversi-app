@@ -105,6 +105,23 @@ readonly class BoardEntity {
         }
     }
 
+    public function existValidMove(int $disc): bool {
+        foreach ($this->discs as $y => $line) {
+            foreach ($line as $x => $discOnBoard) {
+                if ($discOnBoard !== DiscType::EMPTY) {
+                    continue;
+                }
+                $move = new MoveEntity($disc, new PointEntity($x, $y));
+                $flipPoints = $this->listFlipPoints($move);
+
+                if (count($flipPoints) !== 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private function wallDiscs(): array {
         $walled = [];
 

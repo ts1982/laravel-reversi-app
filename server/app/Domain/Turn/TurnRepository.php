@@ -35,10 +35,12 @@ class TurnRepository {
             );
         }
 
+        $next_disc = $selectedTurn->next_disc ?? null;
+
         return new TurnEntity(
             $latestGame->id,
             $turn_count,
-            $selectedTurn->next_disc,
+            $next_disc,
             $move_entity,
             new BoardEntity($board)
         );
