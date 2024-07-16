@@ -6,13 +6,15 @@ use App\Services\GameService;
 use Illuminate\Http\JsonResponse;
 
 class GameController extends Controller {
+    public function __construct(private readonly GameService $game_service) {
+    }
+
     /**
      * 新規ゲーム作成
      * @return JsonResponse
      */
     public function startNewGameRouter(): JsonResponse {
-        $gameService = new GameService();
-        $newGame = $gameService->startNewGame();
+        $newGame = $this->game_service->startNewGame();
 
         return response()->json([
             'message' => 'Game created successfully',
