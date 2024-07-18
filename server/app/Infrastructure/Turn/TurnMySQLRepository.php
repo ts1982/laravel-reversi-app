@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class TurnMySQLRepository implements TurnRepository {
     public function findForTurnCount(int $turn_count): TurnEntity {
-        $latestGame = Game::latest()->first();
+        $latestGame = Game::with('turns.squares')->latest()->first();
+
+        if (!$latestGame) {
+            throw new \Error('Latest game not found');
+        }
 
         $selectedTurn = $latestGame->turns()
             ->where('turn_count', $turn_count)
