@@ -1,63 +1,59 @@
 .App {
-    text-align: center;
-    height: 100vh;
+  text-align: center;
+  height: 100vh;
 }
 
 body {
-    text-align: center;
-    background-color: #151515;
-    font-size: 19px;
-    color: #eee;
+  text-align: center;
+  background-color: #151515;
+  font-size: 19px;
+  color: #eee;
 }
 
 .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .warning-message-area {
-    height: 30px;
-    width: 600px;
-    margin: 50px auto;
+  height: 30px;
+  width: 600px;
+  margin: 50px auto;
 }
 
 .board {
-    width: 480px;
-    margin: 20px auto 0;
-    display: grid;
-    grid-template-columns: repeat(8, 60px);
-    border: solid;
-    border-width: 2px 2px 1px 2px;
-    background-color: darkgreen;
-    cursor: pointer;
+  width: 480px;
+  margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: repeat(8, 60px);
+  border: solid;
+  border-width: 2px 2px 1px 2px;
+  background-color: darkgreen;
+  cursor: pointer;
 }
 
 .square {
-    width: 60px;
-    height: 60px;
-    border: solid;
-    border-width: 0 1px 1px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 60px;
+  height: 60px;
+  border: solid;
+  border-width: 0 1px 1px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .stone {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
 }
 
 .dark {
-    background-color: #111;
+  background-color: #111;
 }
 
 .light {
-    background-color: #eee;
-}
-
-.next-disc-message {
-    color: white;
+  background-color: #eee;
 }
